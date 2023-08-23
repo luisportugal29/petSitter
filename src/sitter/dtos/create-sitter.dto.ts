@@ -23,5 +23,8 @@ export class CreateSitterDto {
     @IsString()
     birthDate: string;
 
+    @IsString()
+    photoUrl: string;
+
 
 }

@@ -43,6 +43,7 @@ export class SitterController {
     @UseGuards(AuthGuard)
     @Serialize(SitterDto)
     updateSitter(@Param('id') id: string, @Body() body: UpdateSitterDto ) {
+        console.log(body)
         return this.sittersService.update(parseInt(id), body);
     }
 
@@ -60,16 +61,21 @@ export class SitterController {
         return this.sittersService.remove(parseInt(id));
     }
 
-    @Get('/:id/pet') 
-    async getAssignedPets(@Param('id') id: string) {
-        const sitter = await this.sittersService.getAssignedPets(parseInt(id));
-        return sitter[0].pets || [];
-    }
-
     @Get('/all')
     @UseGuards(AuthGuard)
     getSitters() {
-        return this.sittersService.findAll();
+        const sitters = this.sittersService.findAll();
+    }
+
+    @Get('/:id')
+    getSitter(@Param('id') id: string) {
+        return this.sittersService.getSitter(parseInt(id));
+    }
+
+    @Get('/:id/pet') 
+    async getAssignedPets(@Param('id') id: string) {
+        const sitter = await this.sittersService.getAssignedPets(parseInt(id));
+        return sitter.length ? sitter[0]: {};
     }
 
     @Get()

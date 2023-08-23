@@ -20,6 +20,9 @@ export class SitterDto {
     @Expose()
     birthDate: string;
 
+    @Expose()
+    photoUrl: string;
+
     @Transform(({obj}) => obj.city.name)
     city: string;
 

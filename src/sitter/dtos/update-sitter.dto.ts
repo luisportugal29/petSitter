@@ -17,4 +17,8 @@ export class UpdateSitterDto {
     @IsString()
     @IsOptional()
     phoneNumber: string;
+
+    @IsString()
+    @IsOptional()
+    photoUrl: string;
 }

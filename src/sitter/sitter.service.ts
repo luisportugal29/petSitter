@@ -43,7 +43,9 @@ export class SitterService {
     }
 
     findAll() {
-        return this.repo.find();
+        return this.repo.find({
+            relations: { city: true, pets: true }
+        });
     }
 
     findAllByState(name: string) {
@@ -117,6 +119,13 @@ export class SitterService {
 
         return this.repo.save(sitter);
         
+    }
+
+    getSitter(sitterId: number) {
+        return this.repo.findOne({
+            where: { id: sitterId },
+            relations: { pets: true, city: true }
+        }); 
     }
 
     getAssignedPets(sitterId: number) {

@@ -30,6 +30,9 @@ export class Sitter {
     @Column({type: 'date'})
     birthDate: string;
 
+    @Column({nullable: true})
+    photoUrl: string;
+
     @ManyToOne(() => City, (city) => city.sitters)
     city: City;
 
