@@ -4,12 +4,13 @@ import { SitterService } from './sitter.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LocationModule } from 'src/location/location.module';
 import { Pet } from './entities/pet.entity';
+import { Comment } from './entities/comment.entity';
 import { Sitter } from './entities/sitter.entity';
 import { PetService } from './pet.service';
 import { PetController } from './pet.controller';
 
 @Module({
-  imports: [LocationModule,TypeOrmModule.forFeature([Pet, Sitter])],
+  imports: [LocationModule,TypeOrmModule.forFeature([Pet, Sitter, Comment])],
   controllers: [SitterController, PetController],
   providers: [SitterService, PetService]
 })

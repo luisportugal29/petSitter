@@ -4,10 +4,12 @@ import {
     PrimaryGeneratedColumn, 
     ManyToMany, 
     ManyToOne,
-    JoinTable  
+    JoinTable,  
+    OneToMany
 } from "typeorm";
 import { City } from "../../location/entities/city.entity";
 import { Pet } from "./pet.entity";
+import { Comment } from "./comment.entity";
 
 @Entity()
 export class Sitter {
@@ -39,6 +41,10 @@ export class Sitter {
     @ManyToMany(() => Pet, (pet) => pet.sitters)
     @JoinTable()
     pets: Pet[];
+
+
+    @OneToMany(() =>  Comment, comment => comment.sitter)
+    comments: Comment[];
 
 
 }

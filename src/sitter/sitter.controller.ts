@@ -17,6 +17,8 @@ import { UpdateSitterDto } from './dtos/update-sitter.dto';
 import { SitterDto } from './dtos/sitter.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
 import { ApiTags } from '@nestjs/swagger';
+import { CriteriaDto } from './dtos/sitter-criteria.dto';
+import { CreateComentDto } from './dtos/create-comment.dto';
 
 @ApiTags('Sitters')
 @Controller('sitter')
@@ -43,7 +45,6 @@ export class SitterController {
     @UseGuards(AuthGuard)
     @Serialize(SitterDto)
     updateSitter(@Param('id') id: string, @Body() body: UpdateSitterDto ) {
-        console.log(body)
         return this.sittersService.update(parseInt(id), body);
     }
 
@@ -64,7 +65,7 @@ export class SitterController {
     @Get('/all')
     @UseGuards(AuthGuard)
     getSitters() {
-        const sitters = this.sittersService.findAll();
+        return this.sittersService.findAll();
     }
 
     @Get('/:id')
@@ -80,8 +81,14 @@ export class SitterController {
 
     @Get()
     @UseGuards(AuthGuard)
-    getSittersByState(@Query('state') name: string) {
-        return this.sittersService.findAllByState(name);
+    getSittersByState(@Query() criteriaDto: CriteriaDto) {
+        return this.sittersService.findAllByCriteria(criteriaDto);
+    }
+
+    @Post('/:id')
+    @UseGuards(AuthGuard)
+    addCommentToSitter(@Body() commentDto: CreateComentDto,@Param('id') id: string) {
+        return this.sittersService.assignComment(commentDto, parseInt(id));
     }
 
 }

@@ -8,9 +8,6 @@ export class CreateSitterDto {
     @IsString()
     lastName: string;
 
-    @IsString()
-    address: string;
-
     @IsEmail()
     email: string;
 
